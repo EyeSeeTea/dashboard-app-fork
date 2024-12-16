@@ -34,6 +34,12 @@ import { apiStarDashboard } from './apiStarDashboard.js'
 import FilterSelector from './FilterSelector.js'
 import StarDashboardButton from './StarDashboardButton.js'
 import classes from './styles/ActionsBar.module.css'
+import {
+    sGetDashboardsStarredFilter,
+    STARRED_STATE,
+} from '../../../reducers/dashboardsStarredFilter.js'
+import { acSetDashboardsStarredFilter } from '../../../actions/dashboardsStarredFilter.js'
+import { apiPostStarredDashboard } from '../../../api/starred.js'
 
 const ViewActions = ({
     id,
@@ -46,6 +52,8 @@ const ViewActions = ({
     restrictFilters,
     allowedFilters,
     filtersLength,
+    starredFilter,
+    setStarredFilter,
 }) => {
     const [moreOptionsSmallIsOpen, setMoreOptionsSmallIsOpen] = useState(false)
     const [moreOptionsIsOpen, setMoreOptionsIsOpen] = useState(false)
@@ -226,6 +234,15 @@ const ViewActions = ({
         </DropdownButton>
     )
 
+    const updateStarredFilter = () => {
+        const isStarred = isFilterStarred(starredFilter)
+        const value = isStarred ? '' : STARRED_STATE
+        setStarredFilter(value)
+        apiPostStarredDashboard(value)
+    }
+
+    const starredButtonText = getStarredButtonText(starredFilter)
+
     return (
         <>
             <div className={classes.actions}>
@@ -262,6 +279,12 @@ const ViewActions = ({
                     />
                     {getMoreButton(classes.moreButton, false)}
                     {getMoreButton(classes.moreButtonSmall, true)}
+                    <Button
+                        primary={isFilterStarred(starredFilter)}
+                        onClick={updateStarredFilter}
+                    >
+                        {starredButtonText}
+                    </Button>
                 </div>
             </div>
             {id && sharingDialogIsOpen && (
@@ -309,6 +332,7 @@ const mapStateToProps = (state) => {
             ? sGetDashboardStarred(state, dashboard.id)
             : false,
         showDescription: sGetShowDescription(state),
+        starredFilter: sGetDashboardsStarredFilter(state),
     }
 }
 
@@ -316,4 +340,16 @@ export default connect(mapStateToProps, {
     setDashboardStarred: acSetDashboardStarred,
     removeAllFilters: acClearItemFilters,
     updateShowDescription: acSetShowDescription,
+    setStarredFilter: acSetDashboardsStarredFilter,
 })(ViewActions)
+
+export function isFilterStarred(currentValue) {
+    return currentValue === STARRED_STATE
+}
+
+export function getStarredButtonText(value) {
+    const isStarred = isFilterStarred(value)
+    return isStarred
+        ? i18n.t('Show all dashboards')
+        : i18n.t('Show only starred dashboards')
+}

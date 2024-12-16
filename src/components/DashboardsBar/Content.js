@@ -13,6 +13,7 @@ import Chip from './Chip.js'
 import Filter from './Filter.js'
 import { getFilteredDashboards } from './getFilteredDashboards.js'
 import classes from './styles/Content.module.css'
+import { sGetDashboardsStarredFilter } from '../../reducers/dashboardsStarredFilter.js'
 
 const Content = ({
     dashboards,
@@ -22,6 +23,7 @@ const Content = ({
     selectedId,
     onChipClicked,
     onSearchClicked,
+    starredFilter,
 }) => {
     const [redirectUrl, setRedirectUrl] = useState(null)
     const { isDisconnected: offline } = useDhis2ConnectionStatus()
@@ -40,16 +42,18 @@ const Content = ({
     }
 
     const getChips = () =>
-        getFilteredDashboards(dashboards, filterText).map((dashboard) => (
-            <Chip
-                key={dashboard.id}
-                label={dashboard.displayName}
-                starred={dashboard.starred}
-                dashboardId={dashboard.id}
-                selected={dashboard.id === selectedId}
-                onClick={onChipClicked}
-            />
-        ))
+        getFilteredDashboards(dashboards, filterText, starredFilter).map(
+            (dashboard) => (
+                <Chip
+                    key={dashboard.id}
+                    label={dashboard.displayName}
+                    starred={dashboard.starred}
+                    dashboardId={dashboard.id}
+                    selected={dashboard.id === selectedId}
+                    onClick={onChipClicked}
+                />
+            )
+        )
 
     const getControlsSmall = () => (
         <div className={classes.controlsSmall}>
@@ -130,6 +134,7 @@ const mapStateToProps = (state) => ({
     dashboards: sGetAllDashboards(state),
     selectedId: sGetSelectedId(state),
     filterText: sGetDashboardsFilter(state),
+    starredFilter: sGetDashboardsStarredFilter(state),
 })
 
 export default withRouter(connect(mapStateToProps)(Content))

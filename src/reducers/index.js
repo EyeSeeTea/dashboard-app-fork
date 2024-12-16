@@ -14,6 +14,7 @@ import printDashboard from './printDashboard.js'
 import selected from './selected.js'
 import showDescription from './showDescription.js'
 import visualizations from './visualizations.js'
+import dashboardsStarredFilter from './dashboardsStarredFilter.js'
 
 export default combineReducers({
     dashboards,
@@ -31,4 +32,5 @@ export default combineReducers({
     showDescription,
     itemActiveTypes,
     iframePluginStatus,
+    dashboardsStarredFilter,
 })

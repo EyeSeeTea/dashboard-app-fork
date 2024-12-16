@@ -24,6 +24,7 @@ import './styles/App.css'
 import 'react-grid-layout/css/styles.css'
 import 'react-resizable/css/styles.css'
 import './styles/ItemGrid.css'
+import { tSetStarredDashboard } from '../actions/dashboardsStarredFilter.js'
 
 const App = (props) => {
     const { systemSettings } = useSystemSettings()
@@ -33,6 +34,7 @@ const App = (props) => {
         props.fetchDashboards()
         props.setControlBarRows()
         props.setShowDescription()
+        props.setStarredDashboard()
 
         // store the headerbar height for controlbar height calculations
         const headerbarHeight = document
@@ -124,6 +126,7 @@ App.propTypes = {
 const mapDispatchToProps = {
     fetchDashboards: tFetchDashboards,
     setControlBarRows: tSetControlBarRows,
+    setStarredDashboard: tSetStarredDashboard,
     setShowDescription: tSetShowDescription,
     resetState: () => (dispatch) => {
         dispatch(acSetSelected({}))
