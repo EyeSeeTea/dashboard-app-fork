@@ -55,6 +55,7 @@ const ViewActions = ({
     starredFilter,
     setStarredFilter,
 }) => {
+    const [isLoading, setIsLoading] = useState(false)
     const [moreOptionsSmallIsOpen, setMoreOptionsSmallIsOpen] = useState(false)
     const [moreOptionsIsOpen, setMoreOptionsIsOpen] = useState(false)
     const [sharingDialogIsOpen, setSharingDialogIsOpen] = useState(false)
@@ -235,10 +236,16 @@ const ViewActions = ({
     )
 
     const updateStarredFilter = () => {
+        setIsLoading(true)
         const isStarred = isFilterStarred(starredFilter)
         const value = isStarred ? false : STARRED_STATE
-        setStarredFilter(value)
         apiPostStarredDashboard(value)
+            .then(() => {
+                setStarredFilter(value)
+            })
+            .finally(() => {
+                setIsLoading(false)
+            })
     }
 
     const starredButtonText = getStarredButtonText(starredFilter)
@@ -280,10 +287,11 @@ const ViewActions = ({
                     {getMoreButton(classes.moreButton, false)}
                     {getMoreButton(classes.moreButtonSmall, true)}
                     <Button
+                        loading={isLoading}
                         primary={isFilterStarred(starredFilter)}
                         onClick={updateStarredFilter}
                     >
-                        {starredButtonText}
+                        {isLoading ? i18n.t('Saving...') : starredButtonText}
                     </Button>
                 </div>
             </div>
