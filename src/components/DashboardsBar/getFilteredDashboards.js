@@ -1,5 +1,5 @@
 import arraySort from 'd2-utilizr/lib/arraySort.js'
-import { isFilterStarred } from '../../pages/view/TitleBar/ActionsBar'
+import { isFilterStarred } from '../../pages/view/TitleBar/ActionsBar.js'
 
 export const getFilteredDashboards = (
     dashboards,
@@ -12,7 +12,7 @@ export const getFilteredDashboards = (
             .filter((d) =>
                 d.displayName.toLowerCase().includes(filterText.toLowerCase())
             )
-            .filter((d) => (onlyStarred ? d.starred === true : true)),
+            .filter((d) => (onlyStarred ? d.starred : true)),
         'ASC',
         'displayName'
     )

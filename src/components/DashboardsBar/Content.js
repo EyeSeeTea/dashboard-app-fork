@@ -8,12 +8,12 @@ import { connect } from 'react-redux'
 import { Redirect, withRouter } from 'react-router-dom'
 import { sGetAllDashboards } from '../../reducers/dashboards.js'
 import { sGetDashboardsFilter } from '../../reducers/dashboardsFilter.js'
+import { sGetDashboardsStarredFilter } from '../../reducers/dashboardsStarredFilter.js'
 import { sGetSelectedId } from '../../reducers/selected.js'
 import Chip from './Chip.js'
 import Filter from './Filter.js'
 import { getFilteredDashboards } from './getFilteredDashboards.js'
 import classes from './styles/Content.module.css'
-import { sGetDashboardsStarredFilter } from '../../reducers/dashboardsStarredFilter.js'
 
 const Content = ({
     dashboards,
@@ -126,6 +126,7 @@ Content.propTypes = {
     filterText: PropTypes.string,
     history: PropTypes.object,
     selectedId: PropTypes.string,
+    starredFilter: PropTypes.bool,
     onChipClicked: PropTypes.func,
     onSearchClicked: PropTypes.func,
 }

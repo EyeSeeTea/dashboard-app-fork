@@ -3,6 +3,7 @@ import activeModalDimension from './activeModalDimension.js'
 import controlBar from './controlBar.js'
 import dashboards from './dashboards.js'
 import dashboardsFilter from './dashboardsFilter.js'
+import dashboardsStarredFilter from './dashboardsStarredFilter.js'
 import dimensions from './dimensions.js'
 import editDashboard from './editDashboard.js'
 import iframePluginStatus from './iframePluginStatus.js'
@@ -14,7 +15,6 @@ import printDashboard from './printDashboard.js'
 import selected from './selected.js'
 import showDescription from './showDescription.js'
 import visualizations from './visualizations.js'
-import dashboardsStarredFilter from './dashboardsStarredFilter.js'
 
 export default combineReducers({
     dashboards,

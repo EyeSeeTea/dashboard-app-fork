@@ -8,6 +8,7 @@ import { acClearActiveModalDimension } from '../actions/activeModalDimension.js'
 import { tSetControlBarRows } from '../actions/controlBar.js'
 import { tFetchDashboards } from '../actions/dashboards.js'
 import { acClearDashboardsFilter } from '../actions/dashboardsFilter.js'
+import { tSetStarredDashboard } from '../actions/dashboardsStarredFilter.js'
 import { acClearEditDashboard } from '../actions/editDashboard.js'
 import { acClearItemActiveTypes } from '../actions/itemActiveTypes.js'
 import { acClearItemFilters } from '../actions/itemFilters.js'
@@ -24,7 +25,6 @@ import './styles/App.css'
 import 'react-grid-layout/css/styles.css'
 import 'react-resizable/css/styles.css'
 import './styles/ItemGrid.css'
-import { tSetStarredDashboard } from '../actions/dashboardsStarredFilter.js'
 
 const App = (props) => {
     const { systemSettings } = useSystemSettings()
@@ -121,6 +121,7 @@ App.propTypes = {
     resetState: PropTypes.func,
     setControlBarRows: PropTypes.func,
     setShowDescription: PropTypes.func,
+    setStarredDashboard: PropTypes.func,
 }
 
 const mapDispatchToProps = {

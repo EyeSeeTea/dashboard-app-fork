@@ -4,10 +4,10 @@ import {
     apiPostUserDataStoreValue,
 } from './userDataStore.js'
 
-const KEY_SHOW_STARRED_DASHBOARDS = 'show_starred'
+const KEY_SHOW_STARRED_DASHBOARDS = 'showStarred'
 
-export const apiGetStarredDashboard = async () =>
-    await apiGetUserDataStoreValue(KEY_SHOW_STARRED_DASHBOARDS, DEFAULT_STATE)
+export const apiGetStarredDashboard = () =>
+    apiGetUserDataStoreValue(KEY_SHOW_STARRED_DASHBOARDS, DEFAULT_STATE)
 
-export const apiPostStarredDashboard = async (value) =>
-    await apiPostUserDataStoreValue(KEY_SHOW_STARRED_DASHBOARDS, value)
+export const apiPostStarredDashboard = (value) =>
+    apiPostUserDataStoreValue(KEY_SHOW_STARRED_DASHBOARDS, value)

@@ -1,5 +1,5 @@
-import { apiGetStarredDashboard } from '../api/starred'
-import { SET_DASHBOARDS_STARRED_FILTER } from '../reducers/dashboardsStarredFilter'
+import { apiGetStarredDashboard } from '../api/starred.js'
+import { SET_DASHBOARDS_STARRED_FILTER } from '../reducers/dashboardsStarredFilter.js'
 
 // actions
 
@@ -13,8 +13,9 @@ export const acSetDashboardsStarredFilter = (value) => ({
 export const tSetStarredDashboard = () => async (dispatch) => {
     try {
         const starredValue = await apiGetStarredDashboard()
-        dispatch(acSetDashboardsStarredFilter(starredValue))
-    } catch (err) {
+        return dispatch(acSetDashboardsStarredFilter(starredValue))
+    } catch (error) {
         console.log('Error (apiGetStarredDashboard): ', error)
+        return error
     }
 }

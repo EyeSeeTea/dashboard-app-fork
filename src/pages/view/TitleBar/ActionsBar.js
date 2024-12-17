@@ -17,15 +17,21 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { Link, Redirect } from 'react-router-dom'
 import { acSetDashboardStarred } from '../../../actions/dashboards.js'
+import { acSetDashboardsStarredFilter } from '../../../actions/dashboardsStarredFilter.js'
 import { acClearItemFilters } from '../../../actions/itemFilters.js'
 import { acSetShowDescription } from '../../../actions/showDescription.js'
 import { apiPostShowDescription } from '../../../api/description.js'
+import { apiPostStarredDashboard } from '../../../api/starred.js'
 import ConfirmActionDialog from '../../../components/ConfirmActionDialog.js'
 import DropdownButton from '../../../components/DropdownButton/DropdownButton.js'
 import MenuItem from '../../../components/MenuItemWithTooltip.js'
 import { useCacheableSection } from '../../../modules/useCacheableSection.js'
 import { orObject } from '../../../modules/util.js'
 import { sGetDashboardStarred } from '../../../reducers/dashboards.js'
+import {
+    sGetDashboardsStarredFilter,
+    STARRED_STATE,
+} from '../../../reducers/dashboardsStarredFilter.js'
 import { sGetNamedItemFilters } from '../../../reducers/itemFilters.js'
 import { sGetSelected } from '../../../reducers/selected.js'
 import { sGetShowDescription } from '../../../reducers/showDescription.js'
@@ -34,12 +40,6 @@ import { apiStarDashboard } from './apiStarDashboard.js'
 import FilterSelector from './FilterSelector.js'
 import StarDashboardButton from './StarDashboardButton.js'
 import classes from './styles/ActionsBar.module.css'
-import {
-    sGetDashboardsStarredFilter,
-    STARRED_STATE,
-} from '../../../reducers/dashboardsStarredFilter.js'
-import { acSetDashboardsStarredFilter } from '../../../actions/dashboardsStarredFilter.js'
-import { apiPostStarredDashboard } from '../../../api/starred.js'
 
 const ViewActions = ({
     id,
@@ -236,7 +236,7 @@ const ViewActions = ({
 
     const updateStarredFilter = () => {
         const isStarred = isFilterStarred(starredFilter)
-        const value = isStarred ? '' : STARRED_STATE
+        const value = isStarred ? false : STARRED_STATE
         setStarredFilter(value)
         apiPostStarredDashboard(value)
     }
@@ -317,8 +317,10 @@ ViewActions.propTypes = {
     removeAllFilters: PropTypes.func,
     restrictFilters: PropTypes.bool,
     setDashboardStarred: PropTypes.func,
+    setStarredFilter: PropTypes.func,
     showDescription: PropTypes.bool,
     starred: PropTypes.bool,
+    starredFilter: PropTypes.bool,
     updateShowDescription: PropTypes.func,
 }
 
@@ -347,7 +349,7 @@ export function isFilterStarred(currentValue) {
     return currentValue === STARRED_STATE
 }
 
-export function getStarredButtonText(value) {
+function getStarredButtonText(value) {
     const isStarred = isFilterStarred(value)
     return isStarred
         ? i18n.t('Show all dashboards')
