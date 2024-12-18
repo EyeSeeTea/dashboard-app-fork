@@ -18,6 +18,7 @@ jest.mock('@dhis2/analytics', () => ({
             id: 'r3nb0d5h',
         },
     }),
+    getDimensionById: jest.fn(),
 }))
 
 const mockStore = configureMockStore()

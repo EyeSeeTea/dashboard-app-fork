@@ -8,6 +8,7 @@ import { acClearActiveModalDimension } from '../actions/activeModalDimension.js'
 import { tSetControlBarRows } from '../actions/controlBar.js'
 import { tFetchDashboards } from '../actions/dashboards.js'
 import { acClearDashboardsFilter } from '../actions/dashboardsFilter.js'
+import { tSetStarredDashboard } from '../actions/dashboardsStarredFilter.js'
 import { acClearEditDashboard } from '../actions/editDashboard.js'
 import { acClearItemActiveTypes } from '../actions/itemActiveTypes.js'
 import { acClearItemFilters } from '../actions/itemFilters.js'
@@ -33,6 +34,7 @@ const App = (props) => {
         props.fetchDashboards()
         props.setControlBarRows()
         props.setShowDescription()
+        props.setStarredDashboard()
 
         // store the headerbar height for controlbar height calculations
         const headerbarHeight = document
@@ -119,11 +121,13 @@ App.propTypes = {
     resetState: PropTypes.func,
     setControlBarRows: PropTypes.func,
     setShowDescription: PropTypes.func,
+    setStarredDashboard: PropTypes.func,
 }
 
 const mapDispatchToProps = {
     fetchDashboards: tFetchDashboards,
     setControlBarRows: tSetControlBarRows,
+    setStarredDashboard: tSetStarredDashboard,
     setShowDescription: tSetShowDescription,
     resetState: () => (dispatch) => {
         dispatch(acSetSelected({}))

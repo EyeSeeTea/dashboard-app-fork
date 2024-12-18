@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import { Redirect, withRouter } from 'react-router-dom'
 import { sGetAllDashboards } from '../../reducers/dashboards.js'
 import { sGetDashboardsFilter } from '../../reducers/dashboardsFilter.js'
+import { sGetDashboardsStarredFilter } from '../../reducers/dashboardsStarredFilter.js'
 import { sGetSelectedId } from '../../reducers/selected.js'
 import Chip from './Chip.js'
 import Filter from './Filter.js'
@@ -22,6 +23,7 @@ const Content = ({
     selectedId,
     onChipClicked,
     onSearchClicked,
+    starredFilter,
 }) => {
     const [redirectUrl, setRedirectUrl] = useState(null)
     const { isDisconnected: offline } = useDhis2ConnectionStatus()
@@ -40,16 +42,18 @@ const Content = ({
     }
 
     const getChips = () =>
-        getFilteredDashboards(dashboards, filterText).map((dashboard) => (
-            <Chip
-                key={dashboard.id}
-                label={dashboard.displayName}
-                starred={dashboard.starred}
-                dashboardId={dashboard.id}
-                selected={dashboard.id === selectedId}
-                onClick={onChipClicked}
-            />
-        ))
+        getFilteredDashboards(dashboards, filterText, starredFilter).map(
+            (dashboard) => (
+                <Chip
+                    key={dashboard.id}
+                    label={dashboard.displayName}
+                    starred={dashboard.starred}
+                    dashboardId={dashboard.id}
+                    selected={dashboard.id === selectedId}
+                    onClick={onChipClicked}
+                />
+            )
+        )
 
     const getControlsSmall = () => (
         <div className={classes.controlsSmall}>
@@ -122,6 +126,7 @@ Content.propTypes = {
     filterText: PropTypes.string,
     history: PropTypes.object,
     selectedId: PropTypes.string,
+    starredFilter: PropTypes.bool,
     onChipClicked: PropTypes.func,
     onSearchClicked: PropTypes.func,
 }
@@ -130,6 +135,7 @@ const mapStateToProps = (state) => ({
     dashboards: sGetAllDashboards(state),
     selectedId: sGetSelectedId(state),
     filterText: sGetDashboardsFilter(state),
+    starredFilter: sGetDashboardsStarredFilter(state),
 })
 
 export default withRouter(connect(mapStateToProps)(Content))

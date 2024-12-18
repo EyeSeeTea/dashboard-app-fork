@@ -17,15 +17,21 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { Link, Redirect } from 'react-router-dom'
 import { acSetDashboardStarred } from '../../../actions/dashboards.js'
+import { acSetDashboardsStarredFilter } from '../../../actions/dashboardsStarredFilter.js'
 import { acClearItemFilters } from '../../../actions/itemFilters.js'
 import { acSetShowDescription } from '../../../actions/showDescription.js'
 import { apiPostShowDescription } from '../../../api/description.js'
+import { apiPostStarredDashboard } from '../../../api/starred.js'
 import ConfirmActionDialog from '../../../components/ConfirmActionDialog.js'
 import DropdownButton from '../../../components/DropdownButton/DropdownButton.js'
 import MenuItem from '../../../components/MenuItemWithTooltip.js'
 import { useCacheableSection } from '../../../modules/useCacheableSection.js'
 import { orObject } from '../../../modules/util.js'
 import { sGetDashboardStarred } from '../../../reducers/dashboards.js'
+import {
+    sGetDashboardsStarredFilter,
+    STARRED_STATE,
+} from '../../../reducers/dashboardsStarredFilter.js'
 import { sGetNamedItemFilters } from '../../../reducers/itemFilters.js'
 import { sGetSelected } from '../../../reducers/selected.js'
 import { sGetShowDescription } from '../../../reducers/showDescription.js'
@@ -46,7 +52,10 @@ const ViewActions = ({
     restrictFilters,
     allowedFilters,
     filtersLength,
+    starredFilter,
+    setStarredFilter,
 }) => {
+    const [isLoading, setIsLoading] = useState(false)
     const [moreOptionsSmallIsOpen, setMoreOptionsSmallIsOpen] = useState(false)
     const [moreOptionsIsOpen, setMoreOptionsIsOpen] = useState(false)
     const [sharingDialogIsOpen, setSharingDialogIsOpen] = useState(false)
@@ -226,6 +235,17 @@ const ViewActions = ({
         </DropdownButton>
     )
 
+    const updateStarredFilter = () => {
+        setIsLoading(true)
+        const isStarred = isFilterStarred(starredFilter)
+        const value = isStarred ? false : STARRED_STATE
+        apiPostStarredDashboard(value)
+            .then(() => setStarredFilter(value))
+            .finally(() => setIsLoading(false))
+    }
+
+    const starredButtonText = getStarredButtonText(starredFilter)
+
     return (
         <>
             <div className={classes.actions}>
@@ -262,6 +282,13 @@ const ViewActions = ({
                     />
                     {getMoreButton(classes.moreButton, false)}
                     {getMoreButton(classes.moreButtonSmall, true)}
+                    <Button
+                        loading={isLoading}
+                        primary={isFilterStarred(starredFilter)}
+                        onClick={updateStarredFilter}
+                    >
+                        {isLoading ? i18n.t('Saving...') : starredButtonText}
+                    </Button>
                 </div>
             </div>
             {id && sharingDialogIsOpen && (
@@ -294,8 +321,10 @@ ViewActions.propTypes = {
     removeAllFilters: PropTypes.func,
     restrictFilters: PropTypes.bool,
     setDashboardStarred: PropTypes.func,
+    setStarredFilter: PropTypes.func,
     showDescription: PropTypes.bool,
     starred: PropTypes.bool,
+    starredFilter: PropTypes.bool,
     updateShowDescription: PropTypes.func,
 }
 
@@ -309,6 +338,7 @@ const mapStateToProps = (state) => {
             ? sGetDashboardStarred(state, dashboard.id)
             : false,
         showDescription: sGetShowDescription(state),
+        starredFilter: sGetDashboardsStarredFilter(state),
     }
 }
 
@@ -316,4 +346,16 @@ export default connect(mapStateToProps, {
     setDashboardStarred: acSetDashboardStarred,
     removeAllFilters: acClearItemFilters,
     updateShowDescription: acSetShowDescription,
+    setStarredFilter: acSetDashboardsStarredFilter,
 })(ViewActions)
+
+export function isFilterStarred(currentValue) {
+    return currentValue === STARRED_STATE
+}
+
+function getStarredButtonText(value) {
+    const isStarred = isFilterStarred(value)
+    return isStarred
+        ? i18n.t('Show all dashboards')
+        : i18n.t('Show only starred dashboards')
+}
