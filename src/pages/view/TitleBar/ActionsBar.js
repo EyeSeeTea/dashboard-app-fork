@@ -240,12 +240,8 @@ const ViewActions = ({
         const isStarred = isFilterStarred(starredFilter)
         const value = isStarred ? false : STARRED_STATE
         apiPostStarredDashboard(value)
-            .then(() => {
-                setStarredFilter(value)
-            })
-            .finally(() => {
-                setIsLoading(false)
-            })
+            .then(() => setStarredFilter(value))
+            .finally(() => setIsLoading(false))
     }
 
     const starredButtonText = getStarredButtonText(starredFilter)
