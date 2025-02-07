@@ -25,11 +25,11 @@ import { useSystemSettings } from '../../../components/SystemSettingsProvider.js
 import { itemTypeSupportsFullscreen } from '../../../modules/itemTypes.js'
 import { useCacheableSection } from '../../../modules/useCacheableSection.js'
 import { orObject } from '../../../modules/util.js'
+import { ROUTE_START_PATH } from '../../../pages/start/index.js'
 import {
     sGetDashboardsStarredFilter,
     STARRED_STATE,
 } from '../../../reducers/dashboardsStarredFilter.js'
-import { ROUTE_START_PATH } from '../../../pages/start/index.js'
 import { sGetNamedItemFilters } from '../../../reducers/itemFilters.js'
 import { sGetSelected } from '../../../reducers/selected.js'
 import { sGetShowDescription } from '../../../reducers/showDescription.js'
@@ -321,15 +321,12 @@ ActionsBar.propTypes = {
     id: PropTypes.string,
     removeAllFilters: PropTypes.func,
     restrictFilters: PropTypes.bool,
-    setDashboardStarred: PropTypes.func,
-    setStarredFilter: PropTypes.func,
-    showDescription: PropTypes.bool,
-    starred: PropTypes.bool,
-    starredFilter: PropTypes.bool,
     setSlideshow: PropTypes.func,
+    setStarredFilter: PropTypes.func,
     showAlert: PropTypes.func,
     showDescription: PropTypes.bool,
     starred: PropTypes.bool,
+    starredFilter: PropTypes.bool,
     toggleDashboardStarred: PropTypes.func,
     updateShowDescription: PropTypes.func,
 }
