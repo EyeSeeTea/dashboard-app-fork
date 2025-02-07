@@ -5,7 +5,6 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Redirect, HashRouter as Router, Route, Switch } from 'react-router-dom'
 import { acClearActiveModalDimension } from '../actions/activeModalDimension.js'
-import { tSetControlBarRows } from '../actions/controlBar.js'
 import { tFetchDashboards } from '../actions/dashboards.js'
 import { acClearDashboardsFilter } from '../actions/dashboardsFilter.js'
 import { tSetStarredDashboard } from '../actions/dashboardsStarredFilter.js'
@@ -32,7 +31,6 @@ const App = (props) => {
 
     useEffect(() => {
         props.fetchDashboards()
-        props.setControlBarRows()
         props.setShowDescription()
         props.setStarredDashboard()
 
@@ -50,7 +48,7 @@ const App = (props) => {
     return (
         systemSettings && (
             <>
-                <CssVariables colors spacers />
+                <CssVariables colors spacers elevations />
                 <Router>
                     <Switch>
                         <Route
@@ -119,14 +117,12 @@ const App = (props) => {
 App.propTypes = {
     fetchDashboards: PropTypes.func,
     resetState: PropTypes.func,
-    setControlBarRows: PropTypes.func,
     setShowDescription: PropTypes.func,
     setStarredDashboard: PropTypes.func,
 }
 
 const mapDispatchToProps = {
     fetchDashboards: tFetchDashboards,
-    setControlBarRows: tSetControlBarRows,
     setStarredDashboard: tSetStarredDashboard,
     setShowDescription: tSetShowDescription,
     resetState: () => (dispatch) => {
