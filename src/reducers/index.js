@@ -14,6 +14,7 @@ import selected from './selected.js'
 import showDescription from './showDescription.js'
 import slideshow from './slideshow.js'
 import visualizations from './visualizations.js'
+import savedFilters from "./savedFilters";
 
 export default combineReducers({
     dashboards,
@@ -31,4 +32,5 @@ export default combineReducers({
     slideshow,
     itemActiveTypes,
     iframePluginStatus,
+    savedFilters,
 })

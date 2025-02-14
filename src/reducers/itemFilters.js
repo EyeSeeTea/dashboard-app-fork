@@ -46,6 +46,7 @@ export const sGetNamedItemFilters = createSelector(
                 values: filters[id].map((value) => ({
                     id: value.id,
                     name: value.displayName || value.name,
+                    ...(value.path && {path: value.path})
                 })),
             })
 

@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-12-19T11:30:27.893Z\n"
-"PO-Revision-Date: 2024-12-19T11:30:27.893Z\n"
+"POT-Creation-Date: 2025-02-14T10:25:08.172Z\n"
+"PO-Revision-Date: 2025-02-14T10:25:08.173Z\n"
 
 msgid "Untitled dashboard"
 msgstr "Untitled dashboard"
@@ -86,6 +86,12 @@ msgstr "Cancel"
 
 msgid "Confirm"
 msgstr "Confirm"
+
+msgid "Shared filters"
+msgstr "Shared filters"
+
+msgid "My filters"
+msgstr "My filters"
 
 msgid "Filter"
 msgstr "Filter"
@@ -226,12 +232,12 @@ msgid "No data to display"
 msgstr "No data to display"
 
 msgid ""
-"Install Line Listing app version ${minLLVersion.join(\n"
-"                                '.'\n"
+"Install Line Listing app version ${minLLVersion.join(\r\n"
+"                                '.'\r\n"
 "                            )} or higher in order to display this item."
 msgstr ""
-"Install Line Listing app version ${minLLVersion.join(\n"
-"                                '.'\n"
+"Install Line Listing app version ${minLLVersion.join(\r\n"
+"                                '.'\r\n"
 "                            )} or higher in order to display this item."
 
 msgid "Show without filters"
@@ -384,18 +390,18 @@ msgid "Dashboard filter settings"
 msgstr "Dashboard filter settings"
 
 msgid ""
-"Dashboards can be filtered by dimensions to change\n"
+"Dashboards can be filtered by dimensions to change\r\n"
 "                                         the data shown. By default, all "
-"dimensions are available\n"
+"dimensions are available\r\n"
 "                                         as filters. Alternatively, only "
-"selected dimensions can\n"
+"selected dimensions can\r\n"
 "                                         be made available on a dashboard."
 msgstr ""
-"Dashboards can be filtered by dimensions to change\n"
+"Dashboards can be filtered by dimensions to change\r\n"
 "                                         the data shown. By default, all "
-"dimensions are available\n"
+"dimensions are available\r\n"
 "                                         as filters. Alternatively, only "
-"selected dimensions can\n"
+"selected dimensions can\r\n"
 "                                         be made available on a dashboard."
 
 msgid "Available Filters"
@@ -562,6 +568,21 @@ msgstr "Cannot edit filters while offline"
 msgid "Cannot edit filters on a small screen"
 msgstr "Cannot edit filters on a small screen"
 
+msgid "Rename"
+msgstr "Rename"
+
+msgid "Save"
+msgstr "Save"
+
+msgid "Save as new filter"
+msgstr "Save as new filter"
+
+msgid "Make it public"
+msgstr "Make it public"
+
+msgid "Make it private"
+msgstr "Make it private"
+
 msgid "Removing filters while offline"
 msgstr "Removing filters while offline"
 
@@ -574,6 +595,18 @@ msgstr ""
 
 msgid "Yes, remove filters"
 msgstr "Yes, remove filters"
+
+msgid "Save Filter"
+msgstr "Save Filter"
+
+msgid "Untitled filter"
+msgstr "Untitled filter"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Scope"
+msgstr "Scope"
 
 msgid "Exit slideshow"
 msgstr "Exit slideshow"
@@ -612,3 +645,6 @@ msgstr "This dashboard cannot be loaded while offline."
 
 msgid "Go to start page"
 msgstr "Go to start page"
+
+msgid "Saved Filters"
+msgstr "Saved Filters"
