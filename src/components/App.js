@@ -23,6 +23,7 @@ import './styles/App.css'
 import 'react-grid-layout/css/styles.css'
 import 'react-resizable/css/styles.css'
 import './styles/ItemGrid.css'
+import { tFetchSavedFilters } from '../actions/savedFilters'
 
 const App = (props) => {
     const { systemSettings } = useSystemSettings()
@@ -31,6 +32,7 @@ const App = (props) => {
     useEffect(() => {
         props.fetchDashboards()
         props.setShowDescription()
+        props.fetchSavedFilters()
 
         // store the headerbar height for controlbar height calculations
         const headerbarHeight = document
@@ -116,11 +118,13 @@ App.propTypes = {
     fetchDashboards: PropTypes.func,
     resetState: PropTypes.func,
     setShowDescription: PropTypes.func,
+    fetchSavedFilters: PropTypes.func,
 }
 
 const mapDispatchToProps = {
     fetchDashboards: tFetchDashboards,
     setShowDescription: tSetShowDescription,
+    fetchSavedFilters: tFetchSavedFilters,
     resetState: () => (dispatch) => {
         dispatch(acSetSelected({}))
         dispatch(acClearDashboardsFilter())
